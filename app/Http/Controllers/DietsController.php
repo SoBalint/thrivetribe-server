@@ -14,13 +14,23 @@ class DietsController extends Controller
         return response()->json($diets);
     }
 
+    public function getDiet(int $dietId) {
+        $diets = Diet::with("foods")->get();
+        foreach ($diets as $diet) {
+            if ($diet->id == $dietId) {
+                return response()->json($diet);
+            }
+        }
+        return response()->json("", 403);
+    }
+
     public function create(StoreDiets $request)
     {
         $request->validated();
         $post = $request->all();
         $foods = $request->get("foods");
         unset($post["foods"]);
-        $created = Diet::query()->create($post);
+        $created = Diet::create($post);
         $created->foods()->attach($foods);
         return response()->json($created);
     }
@@ -28,12 +38,12 @@ class DietsController extends Controller
     public function update(Diet $diet, StoreDiets $request)
     {
         $post = $request->all();
-        $foods = $request->get("foods");
-        unset($post["foods"]);
-        $diet->update($foods);
-        $diet->foods()->sync($foods);
+        //$foods = $request->get("foods");
+        //unset($post["foods"]);
+        $diet->update($post);
+        //$diet->foods()->sync($foods);
         $diet->save();
-        return response()->json($diet);
+        return response()->json($diet->load("foods"));
     }
 
     public function delete(Diet $diet)

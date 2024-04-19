@@ -14,6 +14,16 @@ class FoodsController extends Controller
         return response()->json($foods);
     }
 
+    public function getFood(int $foodId) {
+        $foods = Food::with("diets")->get();
+        foreach ($foods as $food) {
+            if ($food->id == $foodId) {
+                return response()->json($food);
+            }
+        }
+        return response()->json("", 403);
+    }
+
     public function create(StoreFoods $request)
     {
         $request->validated();

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('DisLike')->nullable();
             $table->string('Type');
             $table->date('UploadeDate');
+            $table->string('Author');
         });
     }
 

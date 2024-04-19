@@ -14,6 +14,16 @@ class MapsController extends Controller
         return response()->json($maps);
     }
 
+    public function getMap(int $mapId) {
+        $maps = Map::with("location")->get();
+        foreach ($maps as $map) {
+            if ($map->id == $mapId) {
+                return response()->json($map);
+            }
+        }
+        return response()->json("", 403);
+    }
+
     public function create(StoreMaps $request)
     {
         $request->validated();

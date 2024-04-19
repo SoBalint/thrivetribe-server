@@ -13,6 +13,20 @@ class CityCentrumsController extends Controller
         $cityCs = CityCentrum::get();
         return response()->json($cityCs);
     }
+    public function search($key)
+    {
+        return CityCentrum::where('Name','LIKE', '%'.$key.'%')->get();
+    }
+
+    public function getCT(int $ctId) {
+        $cts = CityCentrum::get();
+        foreach ($cts as $ct) {
+            if ($ct->id == $ctId) {
+                return response()->json($ct);
+            }
+        }
+        return response()->json("", 403);
+    }
 
     public function create(StoreCityCentrums $request)
     {

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('MessageBoard', function (Blueprint $table) {
-            $table->foreign(['UserId'], 'user_id_fkeymb')->references(['id'])->on('Users');
+            $table->foreign(['UserId'], 'user_id_fkeymb')->references(['id'])->on('Users')->onDelete('CASCADE');
         });
     }
 

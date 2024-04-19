@@ -13,7 +13,7 @@ class StoreTrainings extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,8 @@ class StoreTrainings extends FormRequest
             'Name' => 'required',
             'Text' => 'required',
             'Type' => 'required',
-            'UploadeDate' => 'required'
+            'UploadeDate' => 'required',
+            'Author' => 'required'
         ];
     }
 

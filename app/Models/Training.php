@@ -14,7 +14,10 @@ class Training extends Model
         'Name',
         'Text',
         'Type',
-        'UploadeDate'
+        'UploadeDate',
+        'Author',
+        'Like',
+        'DisLike'
     ];
 
     public function users()

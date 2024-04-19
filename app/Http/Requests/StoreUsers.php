@@ -23,13 +23,18 @@ class StoreUsers extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'UserName' => 'required',
-            'Password' => 'required',
             'Email' => 'required',
             'FirstName' => 'required',
             'LastName' => 'required'
         ];
+
+        if ($this->request->get("Password")) {
+            $rules['Password'] = 'required';
+        }
+
+        return $rules;
     }
 
     protected function failedValidation(Validator $validator)

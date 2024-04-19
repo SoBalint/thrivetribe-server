@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('Map', function (Blueprint $table) {
-            $table->foreign(['CordinationId'], 'cordination_id_fkey')->references(['id'])->on('Location');
+            $table->foreign(['CordinationId'], 'cordination_id_fkey')->references(['id'])->on('Location')->onDelete('CASCADE');
         });
     }
 

@@ -14,6 +14,16 @@ class RolesController extends Controller
         return response()->json($roles);
     }
 
+    public function getRole(int $roleId) {
+        $roles = Role::with("users")->get();
+        foreach ($roles as $role) {
+            if ($role->id == $roleId) {
+                return response()->json($role);
+            }
+        }
+        return response()->json("", 403);
+    }
+
     public function create(StoreRoles $request)
     {
         $request->validated();

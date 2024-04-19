@@ -11,13 +11,20 @@ class Users extends Model
 {
     use HasFactory;
     protected $table = "Users";
-            public $timestamps = false;
+    public $timestamps = false;
+
     protected $fillable = [
         'UserName',
         'Password',
         'Email',
         'FirstName',
-        'LastName'
+        'LastName',
+        'Age',
+        'Height',
+        'Weight',
+        'Phone',
+        'CoachExperienceId',
+        'LastLogin'
     ];
 
     public function training()

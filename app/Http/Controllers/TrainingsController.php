@@ -14,16 +14,37 @@ class TrainingsController extends Controller
         return response()->json($trainings);
     }
 
+    public function getTraining(int $trainingId)
+    {
+        $trainings = Training::with("users")->get();
+        foreach ($trainings as $training) {
+            if ($training->id == $trainingId) {
+                return response()->json($training);
+            }
+        }
+    }
+
+    public function getTopFour()
+    {
+        $trainings = Training::with("users")->get();
+        $tops = Training::orderBy("Like", "desc")->limit(4)->get();
+        return response()->json($tops);
+    }
+
     public function create(StoreTrainings $request)
     {
         $request->validated();
-        $created = Training::insert($request->all());
+        $post = $request->all();
+        $post["Text"] = strip_tags($post["Text"]);
+        $created = Training::insert($post);
         return response()->json($created);
     }
 
     public function update(Training $training, StoreTrainings $request)
     {
-        $training->update($request->all());
+        $posts = $request->all();
+        $posts["Text"] = strip_tags($posts["Text"]);
+        $training->update($posts);
         return response()->json($training);
     }
 
